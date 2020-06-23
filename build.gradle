@@ -8,11 +8,89 @@
 plugins {
     id "de.undercouch.download" version "4.0.4"
     id "nebula.ospackage" version "8.3.0"
+    id 'java'
 }
 
-task downloadSpigotBuildTools(type: Download) {
-    src 'https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar'
+task downloadPaperJar(type: Download) {
+    src 'https://papermc.io/api/v1/paper/1.15.2/361/download'
+    dest "$buildDir/paper.jar"
+    overwrite false
+}
+
+task downloadRconCLI(type: Download) {
+    src 'https://github.com/itzg/rcon-cli/releases/download/1.4.8/rcon-cli_1.4.8_linux_amd64.tar.gz'
     dest buildDir
     overwrite false
 }
 
+task untarRcon(type: Copy) {
+    dependsOn downloadRconCLI
+    from tarTree("$buildDir/rcon-cli_1.4.8_linux_amd64.tar.gz")
+    into buildDir
+}
+
+task downloadWorldDownloader(type: Download) {
+    src 'https://github.com/LadySerena/world-downloader/releases/download/v0.1.1/world-downloader_0.1.1_Linux_x86_64.tar.gz'
+    dest buildDir
+    overwrite false
+}
+
+task untarWorldDownloader(type: Copy) {
+    dependsOn downloadWorldDownloader
+    from tarTree("$buildDir/world-downloader_0.1.1_Linux_x86_64.tar.gz")
+    into buildDir
+}
+
+task buildMinecraft(type: Deb) {
+    dependsOn downloadPaperJar
+    dependsOn untarRcon
+    dependsOn untarWorldDownloader
+    packageName 'paper-mc'
+    version versionProperty
+    release releaseProperty
+    arch 'amd64'
+    os 'Linux'
+    requires('openjdk-11-jdk-headless')
+    preInstall file('scripts/preInstall.sh')
+    postInstall file('scripts/postInstall.sh')
+    from('opt/minecraft') {
+        into '/opt/minecraft'
+        user 'minecraft'
+        exclude 'minecraft-shutdown.sh'
+        exclude 'minecraft-start.sh'
+        exclude 'server-backup.sh'
+        permissionGroup 'minecraft'
+        fileMode 0644
+    }
+    from(buildDir) {
+        into '/opt/minecraft'
+        include 'paper.jar'
+        user 'minecraft'
+        permissionGroup 'minecraft'
+        fileMode 0644
+    }
+    from(buildDir) {
+        into '/usr/local/bin'
+        include 'rcon-cli'
+        include 'world-downloader'
+        user 'root'
+        permissionGroup 'root'
+        fileMode 0751
+    }
+    from('etc/systemd') {
+        into '/etc/systemd/system'
+        user 'root'
+        permissionGroup 'root'
+        fileMode 0644
+    }
+    from('secrets/decrypted') {
+        into '/opt/minecraft'
+        user 'minecraft'
+        permissionGroup 'minecraft'
+        fileMode 0644
+    }
+}
+
+build {
+    dependsOn buildMinecraft
+}
