@@ -1,4 +1,4 @@
-.gradle
+a.gradle
 /build/
 
 # Ignore Gradle GUI config
@@ -39,3 +39,6 @@ gradle-app.setting
 *.iml
 out
 gen
+### sops template
+secrets/decrypted/*
+!secrets/decrypted/.gitkeep
