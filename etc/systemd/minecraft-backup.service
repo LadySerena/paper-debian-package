@@ -1,0 +1,12 @@
+[Unit]
+Description=minecraft server backup
+Documentation=https://minecraft.gamepedia.com/Tutorials/Setting_up_a_server#Linux_instructions
+[Service]
+WorkingDirectory=/opt/minecraft
+Type=simple
+ExecStart=/opt/minecraft/server-backup.sh
+Restart=on-failure
+User=minecraft
+Group=minecraft
+[Install]
+WantedBy=multi-user.target
