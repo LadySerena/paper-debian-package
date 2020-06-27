@@ -5,8 +5,8 @@ Documentation=https://minecraft.gamepedia.com/Tutorials/Setting_up_a_server#Linu
 WorkingDirectory=/opt/minecraft
 Type=simple
 Environment=BUCKET_NAME=tiede-minecraft-world-bucket
-ExecStart=/opt/minecraft/minecraft-start.sh
-ExecStop=/opt/minecraft/minecraft-shutdown.sh
+ExecStart=/opt/minecraft/start.sh
+ExecStop=/opt/minecraft/shutdown.sh
 Restart=on-failure
 User=minecraft
 Group=minecraft
