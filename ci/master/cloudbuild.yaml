@@ -1,0 +1,13 @@
+steps:
+  - name: 'gcr.io/minecraft-server-tiede/sops-builder:latest'
+    entrypoint: 'bash'
+    args:
+      - './desops.sh'
+  - name: gcr.io/cloud-builders/gradle
+    args:
+      - "build"
+  - name: gcr.io/cloud-builders/gsutil
+    args:
+      - "cp"
+      - "build/distributions/minecraft_1.15.2-14_amd64.deb"
+      - "gs://serena-minecraft-platform-debian-repo/"
