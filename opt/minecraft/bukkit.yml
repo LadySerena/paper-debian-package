@@ -1,1 +1,2 @@
-world-container: /minecraft-data/
+settings:
+  world-container: /minecraft-data/
