@@ -4,12 +4,10 @@
  * This is a general purpose Gradle build.
  * Learn how to create Gradle builds at https://guides.gradle.org/creating-new-gradle-builds
  */
-import org.ajoberstar.grgit.*
 
 plugins {
     id "de.undercouch.download" version "4.0.4"
     id "nebula.ospackage" version "8.3.0"
-    id 'org.ajoberstar.grgit' version '4.0.2'
 }
 
 task downloadPaperJar(type: Download) {
@@ -36,18 +34,6 @@ task downloadWorldDownloader(type: Download) {
     overwrite false
 }
 
-task cloneWaitSilence {
-    doLast {
-        def grgit = Grgit.clone(dir: "$buildDir/waitsilence", uri: "https://github.com/pwaller/waitsilence.git")
-    }
-}
-
-task buildWaitSilence(type: Exec) {
-    dependsOn cloneWaitSilence
-    commandLine './build-waitsilence.sh'
-}
-
-
 task untarWorldDownloader(type: Copy) {
     dependsOn downloadWorldDownloader
     from tarTree("$buildDir/world-downloader_0.1.1_Linux_x86_64.tar.gz")
@@ -58,7 +44,6 @@ task buildMinecraft(type: Deb) {
     dependsOn downloadPaperJar
     dependsOn untarRcon
     dependsOn untarWorldDownloader
-    dependsOn buildWaitSilence
     packageName 'paper-mc'
     version versionProperty
     release releaseProperty
@@ -100,17 +85,9 @@ task buildMinecraft(type: Deb) {
         permissionGroup 'root'
         fileMode 0751
     }
-    from("$buildDir/waitsilence") {
-        into '/usr/local/bin'
-        include 'waitsilence'
-        user 'root'
-        permissionGroup 'root'
-        fileMode 0751
-    }
     from('etc/systemd') {
         into '/etc/systemd/system'
         user 'root'
-        include 'minecraft.service'
         permissionGroup 'root'
         fileMode 0644
     }
