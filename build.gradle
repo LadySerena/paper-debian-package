@@ -12,7 +12,7 @@ plugins {
 }
 
 task downloadPaperJar(type: Download) {
-    src 'https://papermc.io/api/v1/paper/1.15.2/361/download'
+    src 'https://papermc.io/api/v1/paper/1.15.2/372/download'
     dest "$buildDir/paper.jar"
     overwrite false
 }
@@ -56,9 +56,18 @@ task buildMinecraft(type: Deb) {
     from('opt/minecraft') {
         into '/opt/minecraft'
         user 'minecraft'
-        exclude 'minecraft-shutdown.sh'
-        exclude 'minecraft-start.sh'
-        exclude 'server-backup.sh'
+        include 'shutdown.sh'
+        include 'start.sh'
+        include 'backup.sh'
+        permissionGroup 'minecraft'
+        fileMode 0755
+    }
+    from('opt/minecraft') {
+        into '/opt/minecraft'
+        user 'minecraft'
+        exclude 'shutdown.sh'
+        exclude 'start.sh'
+        exclude 'backup.sh'
         permissionGroup 'minecraft'
         fileMode 0644
     }
@@ -80,6 +89,7 @@ task buildMinecraft(type: Deb) {
     from('etc/systemd') {
         into '/etc/systemd/system'
         user 'root'
+        include 'minecraft.service'
         permissionGroup 'root'
         fileMode 0644
     }
