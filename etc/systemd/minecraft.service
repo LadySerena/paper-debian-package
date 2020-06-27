@@ -7,6 +7,7 @@ Type=simple
 Environment=BUCKET_NAME=tiede-minecraft-world-bucket
 ExecStart=/opt/minecraft/start.sh
 ExecStop=/opt/minecraft/shutdown.sh
+TimeoutStopSec=500
 Restart=on-failure
 User=minecraft
 Group=minecraft

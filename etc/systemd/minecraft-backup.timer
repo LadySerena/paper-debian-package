@@ -3,7 +3,7 @@ Description=run minecraft backup daily
 
 [Timer]
 OnCalendar=daily
-Persistent=true
+Persistent=false
 
 [Install]
 WantedBy=timers.target
