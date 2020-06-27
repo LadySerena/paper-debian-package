@@ -1,7 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
 systemctl enable minecraft.service
-systemctl enable minecraft-backup.timer
-systemctl start minecraft-backup.timer
-mkdir -p /minecraft
-chown minecraft:minecraft /minecraft
-chmod 0751 /minecraft
+mkdir -p /minecraft-data
+chown minecraft:minecraft /minecraft-data
+chmod 0751 /minecraft-data
