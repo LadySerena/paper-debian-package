@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-minecraftPath="/opt/minecraft"
-rconConfigPath="$minecraftPath/rcon-config.yaml"
+minecraftPath="/minecraft-data"
+rconConfigPath="/opt/minecraft/rcon-config.yaml"
 worldName="world"
 time=$(date +%s)
 humanDate=$(date -R)
@@ -11,7 +11,7 @@ rcon-cli --config $rconConfigPath save-off
 sleep 5
 rcon-cli --config $rconConfigPath save-all
 sleep 10
-tar -czvf "$minecraftPath/world-$time.tar.gz" "$minecraftPath/$worldName"
+tar -czvf "$minecraftPath/world-$time.tar.gz" "$minecraftPath/"
 gsutil cp "$minecraftPath/world-$time.tar.gz" gs://tiede-minecraft-world-bucket/
 echo "uploaded world backup"
 rcon-cli --config $rconConfigPath save-on
