@@ -1,6 +1,6 @@
 [Unit]
-Description=minecraft server 1.15.2
-Documentation=https://minecraft.gamepedia.com/Tutorials/Setting_up_a_server#Linux_instructions
+Description=minecraft server 1.16.1
+Documentation=https://paper.readthedocs.io/en/latest/
 [Service]
 WorkingDirectory=/opt/minecraft
 Type=simple
