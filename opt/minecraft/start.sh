@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-/usr/bin/java -Xmx2048M -Xms2048M -jar /opt/minecraft/paper.jar nogui
+/usr/bin/java -Xmx2048M -Xms2048M -jar /opt/minecraft/paper.jar nogui --world-container /minecraft-data
