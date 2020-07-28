@@ -9,7 +9,7 @@ echo "$time backing up world $worldName"
 rcon-cli --config $rconConfigPath say server is being shutdown for backups please reconnect in 10 minutes
 sleep 10
 rcon-cli --config $rconConfigPath stop
-sleep 90
+sleep 10
 tar -czvf "/minecraft-backup/world-$time.tar.gz" "$minecraftPath/"
 gsutil cp "/minecraft-backup/world-$time.tar.gz" gs://tiede-minecraft-world-bucket/
 echo "uploaded world backup"
