@@ -9,5 +9,5 @@ steps:
   - name: gcr.io/cloud-builders/gsutil
     args:
       - "cp"
-      - "build/distributions/paper-mc_1.16.1-2_amd64.deb"
+      - "build/distributions/paper-mc_1.16.1-3_amd64.deb"
       - "gs://serena-minecraft-platform-debian-repo/"
