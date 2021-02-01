@@ -58,6 +58,7 @@ task buildMinecraft(type: Deb) {
         include 'shutdown.sh'
         include 'start.sh'
         include 'backup.sh'
+        include 'set-configs.sh'
         permissionGroup 'minecraft'
         fileMode 0755
     }
@@ -89,12 +90,6 @@ task buildMinecraft(type: Deb) {
         into '/etc/systemd/system'
         user 'root'
         permissionGroup 'root'
-        fileMode 0644
-    }
-    from('secrets/decrypted') {
-        into '/opt/minecraft'
-        user 'minecraft'
-        permissionGroup 'minecraft'
         fileMode 0644
     }
 }

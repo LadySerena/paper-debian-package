@@ -5,6 +5,8 @@ Documentation=https://paper.readthedocs.io/en/latest/
 WorkingDirectory=/opt/minecraft
 Type=simple
 Environment=BUCKET_NAME=tiede-minecraft-world-bucket
+EnvironmentFile=/opt/minecraft/secrets
+ExecStartPre=/opt/minecraft/set-configs.sh
 ExecStart=/opt/minecraft/start.sh
 ExecStop=/opt/minecraft/shutdown.sh
 TimeoutStopSec=500
