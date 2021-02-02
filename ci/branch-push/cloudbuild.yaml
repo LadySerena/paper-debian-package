@@ -1,9 +1,6 @@
 steps:
   - name: gcr.io/cloud-builders/gradle
+    entrypoint: bash
     args:
+      - "./gradlew"
       - "build"
-  - name: gcr.io/cloud-builders/gsutil
-    args:
-      - "cp"
-      - "build/distributions/paper-mc_1.16.5-1_amd64.deb"
-      - "gs://serena-minecraft-platform-debian-repo/"

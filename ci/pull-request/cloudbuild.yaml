@@ -1,7 +1,6 @@
 steps:
   - name: gcr.io/cloud-builders/gradle
+    entrypoint: bash
     args:
+      - "./gradlew"
       - "build"
-substitutions:
-  _BUCKET: debian-v1.platform.serenacodes.com
-  _PACKAGE_NAME: paper-mc

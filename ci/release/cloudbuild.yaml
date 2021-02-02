@@ -1,0 +1,16 @@
+steps:
+  - name: gcr.io/cloud-builders/gradle
+    entrypoint: bash
+    args:
+      - "./gradlew"
+      - "build"
+      - "-Ptag=$TAG_NAME"
+  - name: google/cloud-sdk
+    entrypoint: gsutil
+    args:
+      - "cp"
+      - "build/distributions/${_PACKAGE_NAME}_${TAG_NAME}_amd64.deb"
+      - "gs://$_BUCKET/"
+substitutions:
+  _BUCKET: debian-v1.platform.serenacodes.com
+  _PACKAGE_NAME: paper-mc
