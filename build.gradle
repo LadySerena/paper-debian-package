@@ -6,8 +6,15 @@
  */
 
 plugins {
-    id "de.undercouch.download" version "4.0.4"
-    id "nebula.ospackage" version "8.3.0"
+    id "de.undercouch.download" version "4.1.1"
+    id "nebula.ospackage" version "8.5.0"
+}
+
+if (tag != "1-fake") {
+    def extractRelease = { it.split("-") }
+    def full_version = extractRelease(tag)
+    package_version = full_version[0]
+    package_release = full_version[1]
 }
 
 task downloadPaperJar(type: Download) {
@@ -45,8 +52,8 @@ task buildMinecraft(type: Deb) {
     dependsOn untarRcon
     dependsOn untarWorldDownloader
     packageName 'paper-mc'
-    version versionProperty
-    release releaseProperty
+    version package_version
+    release package_release
     arch 'amd64'
     os 'Linux'
     requires('openjdk-11-jdk-headless')
@@ -58,6 +65,7 @@ task buildMinecraft(type: Deb) {
         include 'shutdown.sh'
         include 'start.sh'
         include 'backup.sh'
+        include 'set-configs.sh'
         permissionGroup 'minecraft'
         fileMode 0755
     }
@@ -89,12 +97,6 @@ task buildMinecraft(type: Deb) {
         into '/etc/systemd/system'
         user 'root'
         permissionGroup 'root'
-        fileMode 0644
-    }
-    from('secrets/decrypted') {
-        into '/opt/minecraft'
-        user 'minecraft'
-        permissionGroup 'minecraft'
         fileMode 0644
     }
 }

@@ -1,8 +1,0 @@
-steps:
-  - name: 'gcr.io/minecraft-server-tiede/sops-builder:latest'
-    entrypoint: 'bash'
-    args:
-      - './desops.sh'
-  - name: gcr.io/cloud-builders/gradle
-    args:
-      - "build"
