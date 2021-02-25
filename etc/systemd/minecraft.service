@@ -5,7 +5,6 @@ Documentation=https://paper.readthedocs.io/en/latest/
 WorkingDirectory=/opt/minecraft
 Type=simple
 Environment=BUCKET_NAME=minecraft-world-backups.serenacodes.com
-EnvironmentFile=/opt/minecraft/secrets
 ExecStart=/opt/minecraft/start.sh
 ExecStop=/opt/minecraft/shutdown.sh
 TimeoutStopSec=500
