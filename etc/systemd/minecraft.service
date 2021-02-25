@@ -6,7 +6,6 @@ WorkingDirectory=/opt/minecraft
 Type=simple
 Environment=BUCKET_NAME=minecraft-world-backups.serenacodes.com
 EnvironmentFile=/opt/minecraft/secrets
-ExecStartPre=/opt/minecraft/set-configs.sh
 ExecStart=/opt/minecraft/start.sh
 ExecStop=/opt/minecraft/shutdown.sh
 TimeoutStopSec=500

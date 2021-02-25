@@ -65,7 +65,6 @@ task buildMinecraft(type: Deb) {
         include 'shutdown.sh'
         include 'start.sh'
         include 'backup.sh'
-        include 'set-configs.sh'
         permissionGroup 'minecraft'
         fileMode 0755
     }
