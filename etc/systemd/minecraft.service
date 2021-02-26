@@ -1,5 +1,5 @@
 [Unit]
-Description=minecraft server 1.16.1
+Description=minecraft server 1.16.5
 Documentation=https://paper.readthedocs.io/en/latest/
 After=google-startup-scripts.service
 [Service]
