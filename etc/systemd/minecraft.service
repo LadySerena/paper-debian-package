@@ -1,6 +1,7 @@
 [Unit]
 Description=minecraft server 1.16.1
 Documentation=https://paper.readthedocs.io/en/latest/
+After=google-startup-scripts.service
 [Service]
 WorkingDirectory=/opt/minecraft
 Type=simple
